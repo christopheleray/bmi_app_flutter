@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -211,9 +212,11 @@ class _InputPageState extends State<InputPage> {
                 Navigator.pushNamed(context, '/results');
               },
               child: Container(
-                child: Text('CALCULATE'),
+                child: Center(
+                    child: Text('CALCULATE', style: kLargeButtonTextStyle)),
                 color: kBottomContainerColor,
                 margin: EdgeInsets.only(top: 10.0),
+                padding: EdgeInsets.only(bottom: 25.0),
                 width: double.infinity,
                 height: kBottomHeightContainer,
               ),
