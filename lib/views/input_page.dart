@@ -1,11 +1,14 @@
+import 'package:bmi_calculator/calculator_brain.dart';
+import 'package:bmi_calculator/views/results_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'constants.dart';
-import 'icon_content.dart';
-import 'reusable_card_widget.dart';
-import 'round_icon_button.dart';
+import '../components/bottom_button.dart';
+import '../components/icon_content.dart';
+import '../components/reusable_card_widget.dart';
+import '../components/round_icon_button.dart';
+import '../constants.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -111,7 +114,6 @@ class _InputPageState extends State<InputPage> {
                         onChanged: (double newValue) {
                           setState(() {
                             height = newValue.round();
-                            print(height);
                           });
                         },
                       ),
@@ -207,19 +209,22 @@ class _InputPageState extends State<InputPage> {
                 ],
               ),
             ),
-            GestureDetector(
+            BottomButton(
+              buttonTitle: 'CALCULATE',
               onTap: () {
-                Navigator.pushNamed(context, '/results');
+                CalculatorBrain calc =
+                    CalculatorBrain(weight: weight, height: height);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ResultsPage(
+                      bmiResult: calc.calculateBMI(),
+                      resultText: calc.getResult(),
+                      interpretation: calc.getInterpretation(),
+                    ),
+                  ),
+                );
               },
-              child: Container(
-                child: Center(
-                    child: Text('CALCULATE', style: kLargeButtonTextStyle)),
-                color: kBottomContainerColor,
-                margin: EdgeInsets.only(top: 10.0),
-                padding: EdgeInsets.only(bottom: 25.0),
-                width: double.infinity,
-                height: kBottomHeightContainer,
-              ),
             ),
           ],
         ));
